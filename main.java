@@ -53,30 +53,28 @@ public class main {
 			int cifra= numerosresu(resultado2);
 			System.out.println("El resultado de tu notacion polaca es: "+cifra);
 			reader.close();
-		}
+		}else {
 		System.out.println("La opcion elegida no es correcta vuelve a inicar el programa.");
 		System.out.println("Gracias :)");
+		}
 	}
 	public static int numerosresu(Lista y) {
 		int resultado=0;
 		Lista auxn=y;
-		Cola aux=auxn.inicio;
-		while(auxn.largo()!=1) {
-			
-			Cola aux2=aux.sig;
-			Cola aux3=aux2.sig;
-		if((aux.dato!='('||aux.dato != ')'||aux.dato != '*'||aux.dato != '+'||aux.dato != '-'||aux.dato != '/'||aux.dato != '^')&&(aux2.dato!='('||aux2.dato != ')'||aux2.dato != '*'||aux2.dato != '+'||aux2.dato != '-'||aux2.dato != '/'||aux2.dato != '^')&&(aux3.dato== '('||aux3.dato == ')'||aux3.dato == '*'||aux3.dato == '+'||aux3.dato == '-'||aux3.dato == '/'||aux3.dato == '^')) {
-			int op= operacion(Character.getNumericValue(aux.dato),Character.getNumericValue(aux2.dato),aux3.dato);
-			aux3.dato=(char) op;
-			if(aux.ant!=null) {
-				aux3.ant=aux.ant;
+		ListaP pila= new ListaP();
+		while(auxn.fin!=null) {
+			boolean ver= verifica(auxn.fin.dato);
+			if(ver==true) {
+				int s= (int) pila.pop();
+				int s2 = (int) pila.pop();
+				pila.push((char) operacion(s,s2,auxn.fin.dato));
 			}else {
-				aux3.ant=null;
+				pila.push(auxn.fin.dato);
 			}
-			aux=aux3;
-			}
-		
+			
+			auxn.fin=auxn.fin.ant;
 		}
+		resultado=(int) pila.pop();
 		return resultado;
 	}
 	
@@ -186,3 +184,4 @@ public class main {
 		return x>y;
 	}
 }
+
