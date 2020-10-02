@@ -8,55 +8,35 @@ import java.util.Scanner;
 
 public class main {
 
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		Scanner pen=new Scanner(System.in);
-		System.out.println("BIENVENIDO A LA NOTACION POLACA");
-		System.out.println("[1]ARCHIVO CON LETRAS      [2] ARCHIVO CON NUMEROS");
-		int decide = pen.nextInt();
-		if(decide==1) {
-			System.out.println("Ingresa la ruta del archivo ejemplo(C:\\Users\\DELL\\Desktop\\)");
-			String leer = pen.next();
-			System.out.println("Ingresa el nombre del archivo, ejemplo(input.txt)");
-			String nombre = pen.next();
-			File file =new File(leer+nombre);
-			FileReader reader = new FileReader (file);  
-			BufferedReader li = new BufferedReader(reader);
-			
-			String linea1 = li.readLine();
-			Lista cola=new Lista();
-			for(int i=0;i<linea1.length();i++) {
-				char letra= linea1.charAt(i);
-				cola.put(letra);
+	public static void main(String[] args) throws IOException  {
+		try (// TODO Auto-generated method stub
+			Scanner pen = new Scanner(System.in)) {
+				System.out.println("BIENVENIDO A LA NOTACION POLACA DE EXPRESIONES");
+				//System.out.println("[1]ARCHIVO CON LETRAS      [2] ARCHIVO CON NUMEROS");
+
+				System.out.println("Ingresa la ruta del archivo ejemplo(C:\\Users\\DELL\\Desktop\\)");
+				String leer = pen.next();
+				System.out.println("Ingresa el nombre del archivo, ejemplo(input.txt)");
+				String nombre = pen.next();
+				File file =new File(leer+nombre);
+				FileReader reader = new FileReader (file);  
+				BufferedReader li = new BufferedReader(reader);
+				
+				String linea1 = li.readLine();
+				Lista cola=new Lista();
+				for(int i=0;i<linea1.length();i++) {
+					char letra= linea1.charAt(i);
+					cola.put(letra);
+				}
+				Lista resultado = resuelve(cola);
+				System.out.println("Tu notacion polaca es la siguiente: ");
+				resultado.recorre();
+				
+				
+				reader.close();
 			}
-			Lista resultado = resuelve(cola);
-			resultado.recorre();
-			
-			
-			reader.close();
-		}else if(decide==2) {
-			System.out.println("Ingresa la ruta del archivo ejemplo(C:\\Users\\DELL\\Desktop\\)");
-			String leer = pen.next();
-			System.out.println("Ingresa el nombre del archivo, ejemplo(input.txt)");
-			String nombre = pen.next();
-			File file =new File(leer+nombre);
-			FileReader reader = new FileReader (file);  
-			BufferedReader li2 = new BufferedReader(reader);
-			
-			String linea2 = li2.readLine();
-			Lista cola=new Lista();
-			for(int i=0;i<linea2.length();i++) {
-				char letra= linea2.charAt(i);
-				cola.put(letra);
-			}
-			Lista resultado2 = resuelve(cola);
-			int cifra= numerosresu(resultado2);
-			System.out.println("El resultado de tu notacion polaca es: "+cifra);
-			reader.close();
-		}else {
-		System.out.println("La opcion elegida no es correcta vuelve a inicar el programa.");
-		System.out.println("Gracias :)");
-		}
+		
+		
 	}
 	public static int numerosresu(Lista y) {
 		int resultado=0;
@@ -184,4 +164,3 @@ public class main {
 		return x>y;
 	}
 }
-
